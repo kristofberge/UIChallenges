@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    NavigationPage.HasNavigationBar="False"
+    NavigationPage.HasBackButton="True"
+    xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:converters="clr-namespace:UiChallenges.Converters"
+    xmlns:common="clr-namespace:UiChallenges.Common"
+    x:Class="UiChallenges.Pages.CruiseDetailsPage"
+    Padding="0">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="SemiTransparent">#66000000</Color>
+            <converters:BoolToValueConverter
+                x:Key="LikedToHeartConverter"
+                x:TypeArguments="x:String"
+                TrueValue="{x:Static common:IconFont.Heart}"
+                FalseValue="{x:Static common:IconFont.HeartOutline}"/>
+            <Style x:Key="BackArrow" TargetType="Button">
+                <Setter Property="FontFamily" Value="RalewayBold"/>
+                <Setter Property="FontSize" Value="24"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="BackgroundColor" Value="{StaticResource SemiTransparent}"/>
+            </Style>
+            <Style x:Key="CarouselIndicatorBackground" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="{StaticResource SemiTransparent}"/>
+                <Setter Property="HasShadow" Value="False"/>
+            </Style>
+            <Style x:Key="CarouselIndicator" TargetType="IndicatorView">
+                <Setter Property="IndicatorColor" Value="White"/>
+                <Setter Property="SelectedIndicatorColor" Value="Black"/>
+                <Setter Property="IndicatorSize" Value="10"/>
+            </Style>
+            <Style x:Key="LikeButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="White"/>
+                <Setter Property="FontFamily" Value="MaterialFont"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="FontSize" Value="24"/>
+                <Setter Property="TextColor" Value="Red"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <StackLayout
+        Padding="0"
+        Spacing="10">
+        <AbsoluteLayout
+            HorizontalOptions="Fill"
+            HeightRequest="430">
+            <yummy:PancakeView
+                Padding="0"
+                CornerRadius="0, 0, 30, 30"
+                IsClippedToBounds="True"
+                AbsoluteLayout.LayoutBounds="0, 0, 1, 400"
+                AbsoluteLayout.LayoutFlags="WidthProportional,PositionProportional">
+                <CarouselView
+                    ItemsSource="{Binding Cruise.Images}"
+                    BackgroundColor="Transparent"
+                    VerticalScrollBarVisibility="Never"
+                    IndicatorView="carouselIndicator">
+                    <CarouselView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"/>
+                    </CarouselView.ItemsLayout>
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <Image
+                                Source="{Binding}"
+                                Aspect="AspectFill"/>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+            </yummy:PancakeView>
+            <Button
+                Style="{StaticResource BackArrow}"
+                Text="X"
+                Clicked="Button_Clicked"
+                VerticalOptions="Fill"
+                CornerRadius="20"
+                AbsoluteLayout.LayoutBounds="20, 20, 40, 40"
+                AbsoluteLayout.LayoutFlags="None" />
+            <Frame
+                Padding="10, 6"
+                Style="{StaticResource CarouselIndicatorBackground}"
+                CornerRadius="12"
+                AnchorX="0.5"
+                AnchorY="0.5"
+                Rotation="90"
+                AbsoluteLayout.LayoutBounds="1.05, 0.5, -1, 30"
+                AbsoluteLayout.LayoutFlags="PositionProportional">
+                <IndicatorView
+                    x:Name="carouselIndicator"
+                    Style="{StaticResource CarouselIndicator}"
+                    MaximumVisible="5" />
+            </Frame>
+            <Frame
+                Padding="0"
+                CornerRadius="30"
+                IsClippedToBounds="True"
+                AbsoluteLayout.LayoutBounds="0.5, 1, 60, 60"
+                AbsoluteLayout.LayoutFlags="PositionProportional">
+                <Button
+                    Style="{StaticResource LikeButton}"
+                    Text="{Binding Cruise.Liked, Converter={StaticResource LikedToHeartConverter}}"
+                    Command="{Binding LikeClickedCommand}"/>
+            </Frame>
+        </AbsoluteLayout>
+    </StackLayout>
+</ContentPage>

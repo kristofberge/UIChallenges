@@ -1,0 +1,289 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:UiChallenges.Converters"
+    xmlns:common="clr-namespace:UiChallenges.Common"
+    xmlns:views="clr-namespace:UiChallenges.Views.CruiseMobile"
+    BackgroundColor="{AppThemeBinding Light=White, Dark=Black}"
+    x:Name="thisView"
+    x:Class="UiChallenges.Pages.CruisMobilePage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="FirstName" TargetType="Span">
+                <Setter Property="TextColor" Value="{AppThemeBinding Light=Black, Dark=White}"/>
+                <Setter Property="FontFamily" Value="RalewayBold"/>
+                <Setter Property="FontSize" Value="22"/>
+            </Style>
+            <Style x:Key="LastName" TargetType="Span">
+                <Setter Property="FontFamily" Value="RalewayThin"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="TextColor" Value="{AppThemeBinding Light=#696969, Dark=#cccccc}"/>
+            </Style>
+            <Style x:Key="MessageUnderName" TargetType="Label">
+                <Setter Property="FontFamily" Value="RalewayRegular"/>
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="TextColor" Value="{AppThemeBinding Light=#696969, Dark=#cccccc}"/>
+            </Style>
+            <Style x:Key="ListHeaderLarge" TargetType="Span">
+                <Setter Property="TextColor" Value="{AppThemeBinding Light=Black, Dark=White}"/>
+                <Setter Property="FontFamily" Value="RalewayBold"/>
+                <Setter Property="FontSize" Value="24"/>
+            </Style>
+            <Style x:Key="ListHeaderSmall" TargetType="Span">
+                <Setter Property="FontFamily" Value="RalewayRegular"/>
+                <Setter Property="FontSize" Value="16"/>
+            </Style>
+            <Style x:Key="ItemTitleLarge" TargetType="Span">
+                <Setter Property="TextColor" Value="{AppThemeBinding Light=Black, Dark=White}"/>
+                <Setter Property="FontFamily" Value="RalewayBold"/>
+                <Setter Property="FontSize" Value="16"/>
+            </Style>
+            <Style x:Key="ItemTitleSmall" TargetType="Span">
+                <Setter Property="FontFamily" Value="RalewayThin"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="TextColor" Value="{AppThemeBinding Light=#575757, Dark=#e3e3e3}"/>
+            </Style>
+            <Style x:Key="ItemDescription" TargetType="Label">
+                <Setter Property="FontFamily" Value="RalewayRegular"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="TextColor" Value="{AppThemeBinding Light=#696969, Dark=#cccccc}"/>
+            </Style>
+            <Style x:Key="Rating" TargetType="Span">
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="TextColor" Value="#f7b602"/>
+            </Style>
+            <Style x:Key="Star" TargetType="Span">
+                <Setter Property="FontFamily" Value="MaterialFont"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="TextColor" Value="#f7b602"/>
+            </Style>
+            <Style x:Key="LikeButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="FontFamily" Value="MaterialFont"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="TextColor" Value="Red"/>
+            </Style>
+            <Style x:Key="Price" TargetType="Label">
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="TextColor" Value="{AppThemeBinding Light=#3d3d3d, Dark=#e6e6e6}"/>
+            </Style>
+            <Style x:Key="FavoritesButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#f28366"/>
+                <Setter Property="TextColor" Value="{AppThemeBinding Light=White, Dark=Black}"/>
+                <Setter Property="FontFamily" Value="RalewayBold"/>
+                <Setter Property="FontSize" Value="20"/>
+            </Style>
+            <converters:BoolToValueConverter
+                x:Key="LikedToHeartConverter"
+                x:TypeArguments="x:String"
+                TrueValue="{x:Static common:IconFont.Heart}"
+                FalseValue="{x:Static common:IconFont.HeartOutline}"/>
+            <LinearGradientBrush
+                x:Key="SeparatorBackground"
+                StartPoint="0,0"
+                EndPoint="1,0">
+                <GradientStop Color="{AppThemeBinding Light=White, Dark=Black}" Offset="0"/>
+                <GradientStop Color="{AppThemeBinding Light=#ededed, Dark=#383838}" Offset="0.5"/>
+                <GradientStop Color="{AppThemeBinding Light=White, Dark=Black}" Offset="1"/>
+            </LinearGradientBrush>
+            <LinearGradientBrush
+                x:Key="ListBackground"
+                StartPoint="0,0"
+                EndPoint="1,0">
+                <GradientStop Color="{AppThemeBinding Light=White, Dark=Black}" Offset="0"/>
+                <GradientStop Color="{AppThemeBinding Light=#ededed, Dark=#383838}" Offset="0.2"/>
+                <GradientStop Color="{AppThemeBinding Light=#ededed, Dark=#383838}" Offset="0.8"/>
+                <GradientStop Color="{AppThemeBinding Light=White, Dark=Black}" Offset="1"/>
+            </LinearGradientBrush>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <StackLayout
+        Padding="20"
+        Spacing="0">
+        <!--#region Header-->
+        <Grid
+            RowDefinitions="40, 20"
+            ColumnDefinitions="Auto, *, 60">
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{Binding Header.FirstName}" Style="{StaticResource FirstName}"/>
+                        <Span Text=" " Style="{StaticResource FirstName}"/>
+                        <Span Text="{Binding Header.LastName}" Style="{StaticResource LastName}"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label
+                Style="{StaticResource MessageUnderName}"
+                Text="Choose your journey"
+                Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"/>
+            <AbsoluteLayout Grid.Row="0" Grid.Column="2" Grid.RowSpan="2">
+                <Frame
+                    WidthRequest="60"
+                    HeightRequest="60"
+                    Padding="0"
+                    CornerRadius="30"
+                    HasShadow="False"
+                    BackgroundColor="Transparent"
+                    IsClippedToBounds="True">
+                    <Image
+                        Aspect="AspectFill"
+                        Source="{Binding Header.Avatar}"/>
+                </Frame>
+                <AbsoluteLayout
+                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                    AbsoluteLayout.LayoutBounds="0, 0, 18, 18">
+                    <Ellipse
+                        Fill="{AppThemeBinding Light=White, Dark=Black}"
+                        AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, 1"
+                        AbsoluteLayout.LayoutFlags="All"/>
+                    <Ellipse
+                        Fill="OrangeRed"
+                        AbsoluteLayout.LayoutBounds="0.5, 0.5, 10, 10"
+                        AbsoluteLayout.LayoutFlags="PositionProportional"/>
+                </AbsoluteLayout>
+            </AbsoluteLayout>
+        </Grid>
+        <!--#endregion-->
+        <BoxView
+            Margin="0,20"
+            HeightRequest="1"
+            Background="{StaticResource SeparatorBackground}"/>
+
+        <!--#region List header-->
+        <Label Margin="20, 0, 0, 10">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="Discounts " Style="{StaticResource ListHeaderLarge}"/>
+                    <Span Text="on tours" Style="{StaticResource ItemTitleSmall}"/>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+        <!--#endregion-->
+        <!--#region List -->
+        <CollectionView
+            ItemsSource="{Binding CruisesList}"
+            VerticalScrollBarVisibility="Never"
+            SelectionChanged="OnItemTapped"
+            SelectionMode="Single"
+            Margin="0">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame
+                        Background="{StaticResource ListBackground}"
+                        HasShadow="False"
+                        CornerRadius="0"
+                        Margin="0"
+                        Padding="0, 0, 0, 15">
+                        <Frame
+                            Margin="0"
+                            Padding="0, 0, 0, 20"
+                            BackgroundColor="{AppThemeBinding Light=White, Dark=Black}"
+                            HasShadow="False"
+                            CornerRadius="30">
+                            <Grid
+                                Padding="6, 0"
+                                RowSpacing="0" ColumnSpacing="0"
+                                RowDefinitions="50, 60, 30"
+                                ColumnDefinitions="150, *, 70, 30"
+                                HorizontalOptions="FillAndExpand">
+                                <!--#region Title-->
+                                <Label
+                                    VerticalOptions="Center"
+                                    Padding="0, 0, 8, 0"
+                                    MaxLines="1"
+                                    LineBreakMode="TailTruncation"
+                                    Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding TitleFirst}" Style="{StaticResource ItemTitleLarge}"/>
+                                            <Span Text="{Binding TitleLast, StringFormat=' {0}'}" Style="{StaticResource ItemTitleSmall}"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <!--#endregion-->
+                                <!--#region Rating-->
+                                <Frame
+                                    Margin="0, 8, 8, 8"
+                                    Padding="0"
+                                    HasShadow="False"
+                                    CornerRadius="17"
+                                    BackgroundColor="#fffcde"
+                                    Grid.Row="0" Grid.Column="2">
+                                    <Label
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center"
+                                        HorizontalTextAlignment="Center">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{x:Static common:IconFont.Star}" Style="{StaticResource Star}"/>
+                                                <Span Text=" " Style="{StaticResource Rating}"/>
+                                                <Span Text="{Binding Rating}" Style="{StaticResource Rating}"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </Frame>
+                                <!--#endregion-->
+                                <!--#region Liked-->
+                                <Frame
+                                    HasShadow="False"
+                                    Margin="0, 10"
+                                    Padding="0"
+                                    CornerRadius="15"
+                                    HeightRequest="30"
+                                    WidthRequest="30"
+                                    BackgroundColor="#fffcde"
+                                    Grid.Row="0" Grid.Column="3">
+                                    <Button
+                                        Style="{StaticResource LikeButton}"
+                                        Text="{Binding Liked, Converter={StaticResource LikedToHeartConverter}}"
+                                        Command="{Binding Source={x:Reference thisView}, Path=BindingContext.LikeClickedCommand}"
+                                        CommandParameter="{Binding}"/>
+                                </Frame>
+                                <!--#endregion-->
+                                <!--#region Image-->
+                                <views:CruiseImageView
+                                    HeightRequest="80"
+                                    WidthRequest="140"
+                                    HorizontalOptions="Start"
+                                    VerticalOptions="Start"
+                                    Image1="{Binding Image1}"
+                                    Image2="{Binding Image2}"
+                                    Image3="{Binding Image3}"
+                                    Grid.Row="1" Grid.Column="0" Grid.RowSpan="2"/>
+                                <!--#endregion-->
+                                <!--#region Description-->
+                                <Label
+                                    Text="{Binding Description}"
+                                    Style="{StaticResource ItemDescription}"
+                                    MaxLines="3"
+                                    Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"/>
+                                <!--#endregion-->
+                                <!--Price #region-->
+                                <Label
+                                    Text="{Binding Price, StringFormat='$ {0}'}"
+                                    Style="{StaticResource Price}"
+                                    HorizontalOptions="End"
+                                    Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"/>
+                                <!--#endregion-->
+                            </Grid>
+                        </Frame>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <!--#endregion-->
+        <!--#region Favorites Button-->
+        <Button
+            Style="{StaticResource FavoritesButton}"
+            Margin="0, 14, 0, 20"
+            HeightRequest="60"
+            CornerRadius="30"
+            Text="{Binding NumberOfLiked, StringFormat='Favorite {0}'}"/>
+        <!--#endregion-->
+    </StackLayout>
+</ContentPage>

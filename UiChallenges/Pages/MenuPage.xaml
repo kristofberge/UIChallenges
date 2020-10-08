@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="UiChallenges.Pages.MenuPage"
+    BackgroundColor="{AppThemeBinding Light=White, Dark=#454545}"
+    Title="Ui Challenges">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="RegularButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=LightGray, Dark=DarkGray}"/>
+                <Setter Property="TextColor" Value="{AppThemeBinding Light=Black, Dark=White}"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid
+        ColumnDefinitions="2*, *"
+        RowDefinitions="40"
+        ColumnSpacing="20"
+        RowSpacing="20"
+        HorizontalOptions="FillAndExpand"
+        VerticalOptions="Start"
+        Padding="20">
+        <Button
+            Text="Cruise mobile"
+            Style="{StaticResource RegularButton}"
+            Clicked="NavigateToChallenge"
+            HorizontalOptions="FillAndExpand"
+            Grid.Column="0" Grid.Row="0"/>
+        <Button
+            Text="Url"
+            Style="{StaticResource RegularButton}"
+            BindingContext="https://www.andreasnesheim.no/xamarin-ui-challenge-cruise-mobile-ui-part-1"
+            Clicked="NavigateToUrl"
+            Grid.Column="1" Grid.Row="0"/>
+    </Grid>
+</ContentPage>
